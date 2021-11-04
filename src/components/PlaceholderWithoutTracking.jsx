@@ -107,7 +107,7 @@ class PlaceholderWithoutTracking extends React.Component {
 	}
 
 	render() {
-		const { className, height, placeholder, style, width } = this.props;
+		const { className, height, placeholder, style, width, responsive } = this.props;
 
 		if (placeholder && typeof placeholder.type !== 'function') {
 			return React.cloneElement(placeholder, {
@@ -120,11 +120,11 @@ class PlaceholderWithoutTracking extends React.Component {
 			...style,
 		};
 
-		if (typeof width !== 'undefined') {
+		if (!responsive && typeof width !== 'undefined') {
 			styleProp.width = width;
 		}
 
-		if (typeof height !== 'undefined') {
+		if (!responsive && typeof height !== 'undefined') {
 			styleProp.height = height;
 		}
 
@@ -144,6 +144,7 @@ PlaceholderWithoutTracking.propTypes = {
 	onVisible: PropTypes.func.isRequired,
 	className: PropTypes.string,
 	height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	responsive: PropTypes.bool,
 	placeholder: PropTypes.element,
 	threshold: PropTypes.number,
 	useIntersectionObserver: PropTypes.bool,
@@ -157,6 +158,7 @@ PlaceholderWithoutTracking.propTypes = {
 PlaceholderWithoutTracking.defaultProps = {
 	className: '',
 	placeholder: null,
+	responsive: false,
 	threshold: 100,
 	useIntersectionObserver: true,
 };
